@@ -62,12 +62,7 @@ class SlideshowController {
 
     toggle(interval = 60000)
     {
-        if (this.#interval === null)
-        {
-            this.startSlideshow(interval);
-            return;
-        }
-        this.stopSlideshow();
+        if (this.#isEnabled) { this.disable(); } else { this.enable(interval); }
     }
 
     add(image)
