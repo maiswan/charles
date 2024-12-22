@@ -23,7 +23,7 @@ function livelyPropertyListener(name, val)
             break;
 
         case "showActiveImageFilename":
-            controller.showActiveImageFilename();
+            slideshow.showActiveImageFilename();
             break;
 
         // Ripple
