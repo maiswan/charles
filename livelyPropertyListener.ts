@@ -1,7 +1,7 @@
-function livelyPropertyListener(name, val)
+function livelyPropertyListener(name: string, val: string)
 {
     if (name !== "parameter") { return; }
-    values = val.split(" ");
+    const values: string[] = val.split(" ");
 
     switch (values[0])
     {
@@ -11,11 +11,11 @@ function livelyPropertyListener(name, val)
             break;
 
         case "enableSlideshow":
-            slideshow.enable(values[1]);
+            slideshow.enable(+values[1]);
             break;
 
         case "toggleSlideshow":
-            slideshow.toggle(values[1]);
+            slideshow.toggle(+values[1]);
             break;
 
         case "disableSlideshow":
