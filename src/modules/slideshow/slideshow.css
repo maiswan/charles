@@ -10,7 +10,6 @@ body {
     width: 100vw;
     object-fit: cover;
     object-position: 0 -16vh;
-    filter: contrast(115%) brightness(15%);
 }
 
 #top {
@@ -23,11 +22,4 @@ body {
 
 .hidden {
     opacity: 0;
-}
-
-#noise {
-    background-image: url("noise.png");
-    position: absolute;
-    min-width: 100vw;
-    min-height: 100vh;
 }

@@ -1,90 +1,96 @@
 import './slideshow.css';
+import { ControllerBase } from '../controllerBase';
 
-export class SlideshowController {
-    private topElement: HTMLImageElement;
-    private bottomElement: HTMLImageElement;
-    private images: any[] = [];
-    private interval: number;
-    private _isEnabled: boolean = false;
-    private isTransiting: boolean = false;
-    private hiddenTag: string;
+export class SlideshowController extends ControllerBase {
+    public readonly Identifier = "slideshow";
+
+    private _topElement: HTMLImageElement;
+    private _bottomElement: HTMLImageElement;
+    private _images: any[] = [];
+    private _interval: number;
+    private _intervalPeriod: number;
+    private _isTransiting: boolean = false;
+    private _hiddenTag: string;
+
 
     private static readonly delay = (milliseconds: number) => new Promise((resolve: Function) => setTimeout(resolve, milliseconds));
 
     constructor(images: any[], topElement: HTMLImageElement, bottomElement: HTMLImageElement, hiddenTag: string)
     {
-        this.images = images;
-        this.topElement = topElement;
-        this.bottomElement = bottomElement;
-        this.hiddenTag = hiddenTag;
+        super();
+        this._images = images;
+        this._topElement = topElement;
+        this._bottomElement = bottomElement;
+        this._hiddenTag = hiddenTag;
+    }
+
+    get intervalPeriod() { return this._intervalPeriod; }
+    set intervalPeriod(milliseconds: number) { 
+        this._intervalPeriod = milliseconds;
+        if (this.isEnabled) { this.enable(); } // refresh
     }
 
     async nextImage(): Promise<boolean>
     {
-        if (this.isTransiting) { return false; }
-        this.isTransiting = true;
+        if (this._isTransiting) { return false; }
+        this._isTransiting = true;
 
-        const nextPath = this.images[Math.floor(Math.random() * this.images.length)];
+        const nextPath = this._images[Math.floor(Math.random() * this._images.length)];
 
-        this.bottomElement.src = nextPath;
-        this.topElement.classList.add(this.hiddenTag);
+        this._bottomElement.src = nextPath;
+        this._topElement.classList.add(this._hiddenTag);
         await SlideshowController.delay(2000);
 
-        this.topElement.src = nextPath;
-        this.topElement.classList.remove(this.hiddenTag);
+        this._topElement.src = nextPath;
+        this._topElement.classList.remove(this._hiddenTag);
         
         await SlideshowController.delay(500);
-        this.isTransiting = false;
+        this._isTransiting = false;
         return true;
     }
 
-    isEnabled(): boolean
+    enable(): void
     {
-        return this._isEnabled;
-    }
-
-    enable(interval = 60000): void
-    {
-        this._isEnabled = true;
-        this.interval = window.setInterval(
+        super.enable();
+        this._interval = window.setInterval(
             () => { this.nextImage() },
-            interval
+            this._intervalPeriod
         );
         this.nextImage();
     }
 
     disable(): void
     {
-        this._isEnabled = false;
-        clearInterval(this.interval);
+        super.disable();
+        clearInterval(this._interval);
     }
 
-    toggle(interval = 60000): void
+    toggle(): void
     {
-        if (this._isEnabled) { this.disable(); } else { this.enable(interval); }
+        if (this.isEnabled) { this.disable(); } else { this.enable(); }
     }
 
     add(image: any): void
     {
-        this.images.push(image);
+        this._images.push(image);
     }
 
     remove(image: any): void
     {
-        const index = this.images.indexOf(image);
+        const index = this._images.indexOf(image);
         if (index == -1) { return; }
 
-        this.images.splice(index, 1);
+        this._images.splice(index, 1);
     }
 
     contains(image: any): boolean
     {
-        const index = this.images.indexOf(image);
+        const index = this._images.indexOf(image);
         return index != -1;
     }
 
     showActiveImageFilename(): void
     {
-        alert(this.bottomElement.src);
+        alert(this._bottomElement.src);
     }
 }

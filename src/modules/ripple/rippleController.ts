@@ -1,34 +1,26 @@
 import './ripple.css';
+import { ControllerBase } from '../controllerBase';
 
-export class RippleController {
-    private _isEnabled: boolean = false;
-    private rippleTag: string;
+export class RippleController extends ControllerBase {
+    public readonly Identifier = "ripple";
 
-    constructor(rippleTag: string)
-    {
-        this.rippleTag = rippleTag;
-    }
-
-    isEnabled(): boolean
-    {
-        return this._isEnabled;
-    }
+    private readonly rippleTag = "ripple";
 
     enable(): void
     {
-        this._isEnabled = true;
+        super.enable();
         document.addEventListener("click", this.eventHandler);
     }
 
     disable(): void
     {
-        this._isEnabled = false;
+        super.disable();
         document.removeEventListener("click", this.eventHandler);
     }
 
     toggle(): void
     {
-        if (this._isEnabled) { this.disable(); } else { this.enable(); }
+        if (this.isEnabled) { this.disable(); } else { this.enable(); }
     }
 
     private eventHandler = (e: MouseEvent): void => {
