@@ -1,8 +1,10 @@
-class SlideshowController {
+import './slideshow.css';
+
+export class SlideshowController {
     private topElement: HTMLImageElement;
     private bottomElement: HTMLImageElement;
     private images: any[] = [];
-    private interval: number = null;
+    private interval: number;
     private _isEnabled: boolean = false;
     private isTransiting: boolean = false;
     private hiddenTag: string;
@@ -44,7 +46,7 @@ class SlideshowController {
     enable(interval = 60000): void
     {
         this._isEnabled = true;
-        this.interval = setInterval(
+        this.interval = window.setInterval(
             () => { this.nextImage() },
             interval
         );

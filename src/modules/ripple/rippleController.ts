@@ -1,4 +1,6 @@
-class RippleController {
+import './ripple.css';
+
+export class RippleController {
     private _isEnabled: boolean = false;
     private rippleTag: string;
 
