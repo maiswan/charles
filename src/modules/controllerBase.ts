@@ -23,4 +23,21 @@ export abstract class ControllerBase
     {
         this._isEnabled = !this._isEnabled;
     }
+
+    receive(parameters: string[]): void {
+        switch (parameters[0])
+        {
+            case "enable":
+                this.enable();
+                return;
+                
+            case "disable":
+                this.disable();
+                return;
+
+            case "toggle":
+                this.toggle();
+                return;
+        }
+    }
 }
