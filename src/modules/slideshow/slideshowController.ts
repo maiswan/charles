@@ -12,7 +12,6 @@ export class SlideshowController extends ControllerBase {
     private _isTransiting: boolean = false;
     private _hiddenTag: string;
 
-
     private static readonly delay = (milliseconds: number) => new Promise((resolve: Function) => setTimeout(resolve, milliseconds));
 
     constructor(images: any[], topElement: HTMLImageElement, bottomElement: HTMLImageElement, hiddenTag: string)
@@ -92,5 +91,28 @@ export class SlideshowController extends ControllerBase {
     showActiveImageFilename(): void
     {
         alert(this._bottomElement.src);
+    }
+
+    receive(parameters: string[]): void {
+        super.receive(parameters);
+
+        switch (parameters[0])
+        {
+            case "setIntervalPeriod":
+                this.intervalPeriod = Number(parameters[1]);
+                break;
+
+            case "add":
+                this.add(parameters[1]);
+                break;
+
+            case "remove":
+                this.remove(parameters[1]);
+                break;
+
+            case "showActiveImageFilename":
+                this.showActiveImageFilename();
+                break;
+        }
     }
 }

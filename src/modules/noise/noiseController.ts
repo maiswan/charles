@@ -65,4 +65,19 @@ export class NoiseController extends ControllerBase {
     {
         if (this.isEnabled) { this.disable(); } else { this.enable(); }
     }
+
+    receive(parameters: string[]): void {
+        super.receive(parameters);
+
+        switch (parameters[0])
+        {
+            case "setNoise":
+                this.noise = Number(parameters[1]);
+                return;
+
+            case "setBrightness":
+                this.brightness = Number(parameters[1]);
+                return;
+        }
+    }
 }
