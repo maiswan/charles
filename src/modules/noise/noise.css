@@ -1,0 +1,14 @@
+.noise_base {
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+    transition: opacity .4s ease-in-out;
+}
+
+#noise_noise {
+    background-image: url("noise.png");
+}
+
+.noise_hidden {
+    opacity: 0 !important;
+}
