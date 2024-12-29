@@ -1,22 +1,41 @@
-### Initial Setup
+## Setup
 
 > [!IMPORTANT]
 > Specify the images... or the slideshow has nothing to play.
 
-1. Populate [env.ts](env.ts) as follow:
+1. Populate [src/env.json](src/env.json) as follow:
 
-    ```ts
-    const PATHS: string[] = [
-        "image1",
-        "image2"
-    ];
-2. Build the project with `tsc`.
-3. Open [charles.html](charles.html).
+    ```json
+    {
+        "Paths": [
+            "image_1",
+            "image_2"
+        ]
+    }
+    ```
+2. Build the project with [`vite build`](https://github.com/vitejs/vite).
+3. Open `dist/charles.html`.
 
-----
 
-### Customization
+## Customization
 
-This project exposes the global variables [`slideshow: SlideshowController`](slideshowController.js) and [`ripple: rippleController`](rippleController.js). Send commands through them to control how the slideshow appears.
+### JavaScript/TypeScript
+This project exposes the global variable [`controllers: Map<String, ControllerBase>`](src/modules/controllerBase.ts), which contains all the controllers added when the page is loaded.
 
-There's also a `livelyPropertyListener(name, val)` that helps integration with [Lively Wallpaper](https://github.com/rocksdanister/lively). However, it is too ugly to document at this stage.
+Examples:
+```js
+controllers.get("noise").disable();
+controllers.get("slideshow").nextImage();
+controllers.get("slideshow").intervalPeriod = 10000; // change image every 10s
+```
+
+### Lively
+There is a global function `livelyPropertyListener(name, val)` that helps integrate with [Lively Wallpaper](https://github.com/rocksdanister/lively).
+
+Examples:
+```js
+livelyPropertyListener("parameter", "noise disable");
+livelyPropertyListener("parameter", "slideshow nextImage");
+livelyPropertyListener("parameter", "slideshow setIntervalPeriod 10000"); // change image every 10s
+```
+Note `"parameter"` is a magic string and must be kept intact.

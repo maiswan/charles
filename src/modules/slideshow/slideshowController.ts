@@ -3,6 +3,9 @@ import { ControllerBase } from '../controllerBase';
 
 export class SlideshowController extends ControllerBase {
     public readonly Identifier = "slideshow";
+    private readonly _hiddenTag = "slideshow_hidden";
+    private readonly _bottomTag = "slideshow_bottom";
+    private readonly _topTag = "slideshow_top";
 
     private _topElement: HTMLImageElement;
     private _bottomElement: HTMLImageElement;
@@ -10,17 +13,21 @@ export class SlideshowController extends ControllerBase {
     private _interval: number;
     private _intervalPeriod: number;
     private _isTransiting: boolean = false;
-    private _hiddenTag: string;
 
     private static readonly delay = (milliseconds: number) => new Promise((resolve: Function) => setTimeout(resolve, milliseconds));
 
-    constructor(images: any[], topElement: HTMLImageElement, bottomElement: HTMLImageElement, hiddenTag: string)
+    constructor(canvas: HTMLElement, images: any[])
     {
         super();
         this._images = images;
-        this._topElement = topElement;
-        this._bottomElement = bottomElement;
-        this._hiddenTag = hiddenTag;
+
+        this._topElement = document.createElement("img");
+        this._bottomElement = document.createElement("img");
+        this._topElement.id = this._topTag;
+        this._bottomElement.id = this._bottomTag;
+
+        canvas.appendChild(this._bottomElement);
+        canvas.appendChild(this._topElement);
     }
 
     get intervalPeriod() { return this._intervalPeriod; }

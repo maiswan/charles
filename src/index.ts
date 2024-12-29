@@ -16,18 +16,15 @@ document.addEventListener("DOMContentLoaded", function() {
         map.set(controller.Identifier, controller);
     }
 
-    const topElement: HTMLImageElement = <HTMLImageElement>document.getElementById("top");
-    const bottomElement: HTMLImageElement = <HTMLImageElement>document.getElementById("bottom");
-    const hiddenTag: string = "hidden";
+    const canvasElement: HTMLElement = <HTMLElement>document.getElementById("base");
     
-    const slideshow = new SlideshowController(env.Paths, topElement, bottomElement, hiddenTag);
+    const slideshow = new SlideshowController(canvasElement, env.Paths);
     slideshow.intervalPeriod = 60000;
     slideshow.enable();
 
     const ripple = new RippleController();
     ripple.enable();
 
-    const canvasElement: HTMLElement = <HTMLElement>document.getElementById("base");
     const noise = new NoiseController(canvasElement, 1, 0.15);
     noise.enable();
 
