@@ -5,21 +5,17 @@ body {
     margin: 0;
 }
 
-#bottom, #top {
+#slideshow_bottom, #slideshow_top {
     position: absolute;
     width: 100vw;
     object-fit: cover;
     object-position: 0 -16vh;
 }
 
-#top {
+#slideshow_top {
     transition: opacity 2s;
 }
 
-.notransition {
-    transition: none !important;
-}
-
-.hidden {
+.slideshow_hidden {
     opacity: 0;
 }
