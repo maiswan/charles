@@ -21,7 +21,7 @@ export abstract class ControllerBase
 
     public toggle(): void
     {
-        this._isEnabled = !this._isEnabled;
+        if (this.isEnabled) { this.disable(); } else { this.enable(); }
     }
 
     receive(parameters: string[]): void {

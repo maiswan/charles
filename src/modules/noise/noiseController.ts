@@ -7,7 +7,6 @@ export class NoiseController extends ControllerBase {
     private readonly baseTag = `${this.Identifier}_base`;
     private readonly noiseTag = `${this.Identifier}_noise`;
     private readonly brightnessTag = `${this.Identifier}_brightness`;
-    private readonly hiddenTag = `${this.Identifier}_hidden`;
 
     private _canvasElement: HTMLElement;
     private _noiseElement: HTMLElement = document.createElement("div");
@@ -17,8 +16,8 @@ export class NoiseController extends ControllerBase {
     public get noise(): number { return this._noise; }
     public set noise(value: number)
     { 
-        this._noise = value;        
-        this._brightnessElement.style.opacity = "" + this.noise;
+        this._noise = value;
+        this.update(this.noise, this.brightness);
     }
 
     private _brightness : number;
@@ -26,7 +25,7 @@ export class NoiseController extends ControllerBase {
     public set brightness(value: number)
     { 
         this._brightness = value;
-        this._brightnessElement.style.backgroundColor = `rgba(0,0,0,${1-this.brightness})`;
+        this.update(this.noise, this.brightness);
     }
 
     constructor(canvas: HTMLElement, noise: number, brightness: number)
@@ -37,33 +36,35 @@ export class NoiseController extends ControllerBase {
         this.brightness = brightness;
 
         this._brightnessElement.classList.add(this.baseTag);
-        this._brightnessElement.classList.add(this.hiddenTag);
         this._brightnessElement.id = this.brightnessTag;
         this._canvasElement.appendChild(this._brightnessElement);
 
         this._noiseElement.classList.add(this.baseTag);
-        this._noiseElement.classList.add(this.hiddenTag);
         this._noiseElement.id = this.noiseTag;
         this._canvasElement.appendChild(this._noiseElement);
     }
 
     enable(): void
     {
-        super.enable();        
-        this._brightnessElement.classList.remove(this.hiddenTag);
-        this._noiseElement.classList.remove(this.hiddenTag);
+        super.enable();
+        this.update(this.noise, this.brightness);
     }
 
     disable(): void
     {
         super.disable();
-        this._brightnessElement.classList.add(this.hiddenTag);
-        this._noiseElement.classList.add(this.hiddenTag);
+        this.update(0, 1);
     }
 
     toggle(): void
     {
-        if (this.isEnabled) { this.disable(); } else { this.enable(); }
+        super.toggle();
+    }
+
+    update(noise: number, brightness: number)
+    {
+        document.documentElement.style.setProperty(`--${this.noiseTag}`, "" + noise);   
+        document.documentElement.style.setProperty(`--${this.brightnessTag}`, "" + brightness);  
     }
 
     receive(parameters: string[]): void {
