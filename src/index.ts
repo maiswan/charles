@@ -1,7 +1,8 @@
-import { SlideshowController } from "./modules/slideshow/slideshowController"
-import { RippleController } from "./modules/ripple/rippleController"
-import { NoiseController } from "./modules/noise/noiseController"
+import { BackdropFilterController } from "./modules/backdropFilter/backdropFilterController"
 import { ControllerBase } from "./modules/controllerBase"
+import { NoiseController } from "./modules/noise/noiseController"
+import { RippleController } from "./modules/ripple/rippleController"
+import { SlideshowController } from "./modules/slideshow/slideshowController"
 import { propertyListener } from "./modules/lively/livelyPropertyListener"
 import env from "./env.json"
 
@@ -25,13 +26,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const ripple = new RippleController();
     ripple.enable();
 
-    const noise = new NoiseController(canvasElement, 1, 0.15);
+    const noise = new NoiseController(canvasElement, 1);
     noise.enable();
+
+    const backdropFilter = new BackdropFilterController(canvasElement);
+    // backdropFilter.set("sepia", "100%");
+    backdropFilter.enable();
 
     controllers = new Map<String, ControllerBase>();
     addController(controllers, slideshow);
     addController(controllers, ripple);
     addController(controllers, noise);
+    addController(controllers, backdropFilter);
 
     livelyPropertyListener = propertyListener;
 });
