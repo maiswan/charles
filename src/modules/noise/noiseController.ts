@@ -21,23 +21,32 @@ export class NoiseController extends ControllerBase {
     }
 
     private _brightness : number;
+    /**
+     * @deprecated set brightness through BackdropFilter instread
+     */
     public get brightness(): number { return this._brightness; }
+    /**
+     * @deprecated set brightness through BackdropFilter instread
+     */
     public set brightness(value: number)
     { 
         this._brightness = value;
         this.update(this.noise, this.brightness);
     }
 
-    constructor(canvas: HTMLElement, noise: number, brightness: number)
+    constructor(canvas: HTMLElement, noise: number, brightness?: number)
     {
         super();
         this._canvasElement = canvas;
         this.noise = noise;
-        this.brightness = brightness;
 
-        this._brightnessElement.classList.add(this.baseTag);
-        this._brightnessElement.id = this.brightnessTag;
-        this._canvasElement.appendChild(this._brightnessElement);
+        if (brightness !== undefined)
+        {
+            this.brightness = brightness;
+            this._brightnessElement.classList.add(this.baseTag);
+            this._brightnessElement.id = this.brightnessTag;
+            this._canvasElement.appendChild(this._brightnessElement);
+        }
 
         this._noiseElement.classList.add(this.baseTag);
         this._noiseElement.id = this.noiseTag;
