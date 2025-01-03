@@ -50,16 +50,32 @@ export class BackdropFilterController extends ControllerBase
         this.update();
     }
 
-    enable(): void
+    public enable(): void
     {
         super.enable();
         this.update();
     }
 
-    disable(): void
+    public disable(): void
     {
         super.disable();
         this.update();
+    }
+
+    public receive(parameters: string[]): void
+    {
+        super.receive(parameters);
+
+        switch (parameters[0])
+        {
+            case "set":
+                this.set(parameters[1], parameters[2]);
+                return;
+
+            case "clear":
+                this.clear();
+                return;
+        }
     }
 
     private update(): void
