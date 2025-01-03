@@ -30,6 +30,7 @@ export class NoiseController extends ControllerBase {
      */
     public set brightness(value: number)
     { 
+        console.warn("NoiseController.Brightness is deprecated. Use BackdropFilterController instead.")
         this._brightness = value;
         this.update(this.noise, this.brightness);
     }
