@@ -41,10 +41,7 @@ export class NoiseController extends ControllerBase {
         this._canvasElement = canvas;
         this.noise = noise;
 
-        if (brightness !== undefined)
-        {
-            this.brightness = brightness;
-        }
+        this._brightness = brightness ?? 1;
         
         this._brightnessElement.classList.add(this.baseTag);
         this._brightnessElement.id = this.brightnessTag;
