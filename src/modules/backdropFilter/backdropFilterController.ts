@@ -75,6 +75,10 @@ export class BackdropFilterController extends ControllerBase
             case "clear":
                 this.clear();
                 return;
+
+            case "remove":
+                this.remove(parameters[1]);
+                return;
         }
     }
 
