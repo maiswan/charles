@@ -1,21 +1,9 @@
-:root {
-    --noise_opacity: 0;
-    --noise_brightness: 1;
-}
-
-.noise_base {
+#noise_noise {
+    --noise_noise: 0;
     position: absolute;
     min-width: 100vw;
     min-height: 100vh;
     transition: opacity .4s ease-in-out;
-}
-
-#noise_noise {
     background-image: url("noise.png");
-    opacity: var(--noise_opacity);
-}
-
-#noise_brightness {
-    background-color: black;
-    opacity: calc(1 - var(--noise_brightness));
+    opacity: var(--noise_noise);
 }
