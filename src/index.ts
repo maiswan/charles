@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const ripple = new RippleController();
     ripple.enable();
 
-    const noise = new NoiseController(canvasElement, 0, 1);
+    const noise = new NoiseController(canvasElement, 0);
     noise.enable();
 
     const backdropFilter = new BackdropFilterController(canvasElement);
