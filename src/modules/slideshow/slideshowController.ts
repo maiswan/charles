@@ -120,6 +120,10 @@ export class SlideshowController extends ControllerBase {
             case "showActiveImageFilename":
                 this.showActiveImageFilename();
                 break;
+
+            case "nextImage":
+                this.nextImage();
+                break;
         }
     }
 }
