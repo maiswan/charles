@@ -1,7 +1,7 @@
-## Setup
+> [!WARNING]
+> This repo is no longer updated regularly. Please migrate to [scharles](https://github.com/maiswan/scharles) for continued support.
 
-> [!IMPORTANT]
-> Specify the images... or the slideshow has nothing to play.
+## Setup
 
 1. Populate [src/env.json](src/env.json) as follow:
 
